@@ -1,4 +1,4 @@
-# Nimbo OS 0.14.0-beta.4 · Código consolidado até o lote 10
+# Nimbo OS 0.14.1-beta.4 (PWA) · Código consolidado até o lote 10
 
 Este repositório publica o Nimbo OS Beta 4. O HTML completo foi armazenado em partes comprimidas em `packed/index/` para manter os envios confiáveis; o comando `npm run build` reconstrói o arquivo em `dist/index.html` e verifica seu SHA-256. O conteúdo executável é idêntico ao artefato validado.
 
@@ -43,3 +43,11 @@ Execute `npm run build` para reconstruir e verificar o HTML. Para testes de inte
 - **Vercel:** importe este repositório. A configuração `vercel.json` executa `npm run build` e publica `dist/`. Não exige serviços externos na execução do aplicativo.
 - **GitHub Pages:** ative Pages com origem GitHub Actions em Settings → Pages. Até essa habilitação, o workflow apenas compila/verifica integridade; depois, também publica `dist/`.
 - **Integridade:** `npm run build` falha se o HTML não coincidir com tamanho e SHA-256 documentados no manifesto. A versão é Beta e requer homologação em dispositivos reais.
+
+
+## Nimbo OS PWA instalável (0.14.1-beta.4)
+
+Esta atualização mantém a Beta 4 e os 50 miniaplicativos. O comando `npm run build` agora prepara a versão PWA instalável em `dist/`, com `manifest.webmanifest`, ícones 192/512, `sw.js` e `updates.json`. O HTML completo continua disponível em `dist/index.html` após a compilação. Para instalar, publique em HTTPS (Vercel/GitHub Pages) ou use `localhost`; abrir apenas o HTML por `file://` não habilita instalação ou Service Worker. A central Atualizações verifica a versão, baixa sistema e miniapps empacotados e exige confirmação para ativar. Ela não remove os dados locais do usuário.
+
+- `npm run test:pwa` executa verificações do manifesto, scripts e ciclo de vida do Service Worker simulado.
+- Veja [instalação e uso](docs/INSTALACAO_PWA.md) e [QA PWA](docs/QA_PWA.md) para limitações e próximos testes em hardware.

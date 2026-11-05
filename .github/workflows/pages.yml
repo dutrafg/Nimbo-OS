@@ -20,6 +20,8 @@ jobs:
           node-version: '22'
       - name: Reconstruir e verificar SHA-256 do sistema
         run: npm run build
+      - name: Validar manifesto e atualização offline
+        run: npm run test:pwa
       - name: Consultar habilitação do GitHub Pages
         id: pages
         shell: bash

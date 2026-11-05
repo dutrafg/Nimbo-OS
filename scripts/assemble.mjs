@@ -23,3 +23,6 @@ for (const [name, asset] of entries) {
   writeFileSync(target, output);
   console.log(`OK ${name}: ${output.length} bytes, SHA-256 ${sha}`);
 }
+
+// A Beta 4 compactada é verificada antes de receber os recursos PWA.
+await import('./pwa-build.mjs');
