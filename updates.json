@@ -1,7 +1,7 @@
 {
   "application": "nimbo-os",
-  "version": "0.14.2-beta.4",
-  "build": "42af42a72010fd13284cfd5a50f2c81d4b0dba1cdd61ec484d29304403964a77",
+  "version": "0.14.4-beta.4",
+  "build": "6d64c3879177e0a8b9ce02d1f7c0c250e1f48d4e73eed7021d55f4a028bdf58c",
   "apps_bundled": 50,
-  "release_notes": "Nova interface inspirada no macOS: barra de menus, dock, ícones, janelas, vidro e paleta azul. Mantém os 50 miniaplicativos, PWA e atualizador."
+  "release_notes": "Ícones SVG originais WhiteSur incorporados aos módulos e miniaplicativos; tema WhiteSur GTK adaptado a janelas, barras, menus, botões e campos. Mantém o PWA, modo offline e atualizador."
 }

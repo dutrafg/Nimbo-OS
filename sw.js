@@ -1,6 +1,6 @@
-/* Nimbo OS 0.14.2-beta.4: controle offline por versão, ativação manual. */
+/* Nimbo OS 0.14.4-beta.4: controle offline por versão, ativação manual. */
 'use strict';
-const CACHE_NAME="nimbo-os-shell-c3a72af60b6fccdff8d9";
+const CACHE_NAME="nimbo-os-shell-a2bee29e04685b226c81";
 const PREFIX='nimbo-os-shell-';
 const ASSETS=['./index.html','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/icon-maskable-512.png','./icons/apple-touch-icon.png','./updates.json'];
 const SHELL_URL=new URL('./index.html',self.registration.scope).href;
