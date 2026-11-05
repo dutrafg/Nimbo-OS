@@ -1,12 +1,15 @@
 # Nimbo OS 0.14.0-beta.4 · Código consolidado até o lote 10
 
-Este ZIP contém o sistema completo em `index.html` e os módulos adicionais de código-fonte separados em `src/`. É uma única **entrega de desenvolvimento**, sem dez HTMLs intermediários.
+Este repositório publica o Nimbo OS Beta 4. O HTML completo foi armazenado em partes comprimidas em `packed/index/` para manter os envios confiáveis; o comando `npm run build` reconstrói o arquivo em `dist/index.html` e verifica seu SHA-256. O conteúdo executável é idêntico ao artefato validado.
 
 ## Conteúdo
-- `index.html`: HTML consolidado, autocontido, baseado na Beta 3 original.
+- `packed/index/`: HTML consolidado, autocontido, repartido em blocos de base64 gzip para armazenamento Git. A reconstrução gera `dist/index.html`.
 - `src/lots_03_10.js`: ampliações dos apps 11–50 (40 aplicativos).
 - `src/lots_03_10.css`: estilos adaptativos dos novos painéis.
-- `scripts/rebuild.py`: reconstrói o `index.html` a partir da Beta 3 e dos dois arquivos acima. A base da Beta 3 está versionada na pasta `base/` para permitir a reconstrução local.
+- `scripts/assemble.mjs`: gera o HTML final na pasta `dist` sem dependências externas e valida SHA-256.
+- `scripts/rebuild.py`: reconstrói o HTML a partir da Beta 3, caso a base tenha sido restaurada.
+- `vercel.json`: publica `dist` após `npm run build`.
+- `.github/workflows/pages.yml`: compilação para GitHub Pages (exige Pages habilitado nas configurações).
 - `docs/CHANGELOG_LOTES_03_10.md`: registro das oito etapas implementadas.
 - `docs/QA_LOTES_03_10.md`: alcance dos ensaios e restrições.
 - `tests/`: scripts automatizados de regressão, operações e backup.
@@ -14,7 +17,7 @@ Este ZIP contém o sistema completo em `index.html` e os módulos adicionais de 
 
 ## Como utilizar
 1. Faça cópia de segurança no Nimbo atual, em Ajustes → Dados e backup.
-2. Abra o `index.html` consolidado com navegador atual (Chrome/Edge/Firefox, quando suportado). Se estiver hospedado, utilize HTTPS.
+2. Rode `npm run build` com Node 18 ou superior e abra `dist/index.html` em navegador atual. Se estiver hospedado, utilize HTTPS.
 3. Os 50 aplicativos continuam na Loja. Instale o app desejado sem apagar seus dados. Os novos recursos aparecem em **Ferramentas avançadas**, **análises e produtividade** ou outros painéis complementares.
 4. A sessão de mídia exige selecionar novamente o arquivo local; o app só retém o nome e a posição da reprodução.
 5. Realize os testes no seu navegador e dispositivo antes de migrar qualquer dado valioso. Não trate esta Beta como estável.
@@ -31,3 +34,8 @@ As novas preferências, marcações, revisões e relatórios salvos ficam em `lo
 - Os painéis de dados trabalham com entradas locais do usuário, não sincronizam bancos, contas, email ou serviços de terceiros.
 - Os testes automatizados não comprovam desempenho prolongado, suporte a codecs, impressão/arquivos reais no Android, permissões de pastas ou atualizações online.
 - Esta versão foi disponibilizada na branch `main` como prévia Beta 4; não é uma versão estável.
+## Implantação
+
+- **Vercel:** importe este repositório. A configuração `vercel.json` executa `npm run build` e publica `dist/`. Não exige serviços externos na execução do aplicativo.
+- **GitHub Pages:** ative Pages com origem GitHub Actions nas configurações do repositório. O workflow gera e envia `dist/`.
+- **Integridade:** `npm run build` falha se o HTML não coincidir com tamanho e SHA-256 documentados no manifesto. A versão é Beta e requer homologação em dispositivos reais.

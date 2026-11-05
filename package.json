@@ -1,0 +1,11 @@
+{
+  "name": "nimbo-os",
+  "version": "0.14.0-beta.4",
+  "private": true,
+  "description": "Nimbo OS — PWA local com 50 miniaplicativos",
+  "scripts": {
+    "build": "node scripts/assemble.mjs",
+    "restore:source": "node scripts/assemble.mjs --restore-source"
+  },
+  "engines": {"node": ">=18"}
+}
