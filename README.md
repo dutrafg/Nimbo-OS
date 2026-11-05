@@ -1,5 +1,9 @@
 # Nimbo OS 0.14.1-beta.4 (PWA) · Código consolidado até o lote 10
 
+> **Abrir o Nimbo OS:** https://dutrafg.github.io/Nimbo-OS/  
+> A versão PWA compilada também é publicada na raiz (`index.html`, `sw.js`, `manifest.webmanifest` e `icons/`) para compatibilidade com a publicação pela branch.
+
+
 Este repositório publica o Nimbo OS Beta 4. O HTML completo foi armazenado em partes comprimidas em `packed/index/` para manter os envios confiáveis; o comando `npm run build` reconstrói o arquivo em `dist/index.html` e verifica seu SHA-256. O conteúdo executável é idêntico ao artefato validado.
 
 ## Conteúdo
