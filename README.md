@@ -1,10 +1,14 @@
-# Nimbo OS 0.14.2-beta.4 · PWA · Edição visual inspirada no macOS
+# Nimbo OS 0.14.4-beta.4 · PWA · WhiteSur
 
 > **Abrir o Nimbo OS:** https://dutrafg.github.io/Nimbo-OS/  
 > A versão PWA compilada também é publicada na raiz (`index.html`, `sw.js`, `manifest.webmanifest` e `icons/`) para compatibilidade com a publicação pela branch.
 
 
 Este repositório publica o Nimbo OS Beta 4. O HTML completo foi armazenado em partes comprimidas em `packed/index/` para manter os envios confiáveis; o comando `npm run build` reconstrói o arquivo em `dist/index.html` e verifica seu SHA-256. O conteúdo executável é idêntico ao artefato validado.
+
+## WhiteSur · 0.14.4 Beta 4
+
+Os ícones de módulos e miniaplicativos agora usam SVGs originais do WhiteSur Icon Theme, incorporados no HTML gerado para manter a prévia autocontida e o PWA offline. A interface adapta a paleta e os controles do WhiteSur GTK ao navegador. Os SVGs incluídos e a licença GPL-3.0 estão em `public/whitesur/`; o mapeamento fica em `src/whitesur-icon-map.json` e o tema visual em `src/whitesur-skin.css`.
 
 ## Nova interface Nimbo · 0.14.2 Beta 4
 

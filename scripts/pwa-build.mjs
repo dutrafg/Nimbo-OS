@@ -4,13 +4,13 @@ import {resolve, join, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
-const release='0.14.2-beta.4';
+const release='0.14.4-beta.4';
 const dist=join(root,'dist');mkdirSync(dist,{recursive:true});
 const sha=buffer=>createHash('sha256').update(buffer).digest('hex');
 let html=readFileSync(join(dist,'index.html'),'utf8');
 if(!html.includes("const RELEASE = '0.14.0-beta.4';"))throw Error('A base não é a Beta 4 esperada.');
 html=html.replace("const RELEASE = '0.14.0-beta.4';",`const RELEASE = '${release}';`);
-html=html.replace('<title>Nimbo OS 0.14 — Seu espaço</title>','<title>Nimbo OS 0.14.1 · Beta 4 PWA — Seu espaço</title>');
+html=html.replace('<title>Nimbo OS 0.14 — Seu espaço</title>','<title>Nimbo OS 0.14.4 · Beta 4 · WhiteSur</title>');
 const tags=`<meta name="nimbo-version" content="${release}">
   <meta name="application-name" content="Nimbo OS">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -49,26 +49,43 @@ if (!html.includes("const DOCK_DEFAULT={position:'left',size:46")) {
 }
 html=html.replace("const DOCK_DEFAULT={position:'left',size:46",
                   "const DOCK_DEFAULT={position:'bottom',size:48");
-html=html.replace("tone: '#286e62'", "tone: '#287ee4'");
-html=html.replace('content="#e5eee9"', 'content="#287ee4"');
+html=html.replace("tone: '#286e62'", "tone: '#0860f2'");
+html=html.replace('content="#e5eee9"', 'content="#0860f2"');
 const macCSS=readFileSync(join(root,'src','mac-ui.css'),'utf8');
+const whiteSurCSS=readFileSync(join(root,'src','whitesur-skin.css'),'utf8');
 const macJS=readFileSync(join(root,'src','mac-ui.js'),'utf8');
 if (macJS.includes('</script')) throw Error('Script de interface inválido.');
-html=html.replace('</style>', '\n'+macCSS+'\n</style>');
+html=html.replace('</style>', '\n'+macCSS+'\n'+whiteSurCSS+'\n</style>');
 html=html.replace('</body>', '<script>\n'+macJS+'\n</script>\n</body>');
-html=html.replace('0.14.1 · Beta 4 PWA', '0.14.2 · Beta 4 · Edição macOS');
+const whiteSurMap=JSON.parse(readFileSync(join(root,'src','whitesur-icon-map.json'),'utf8'));
+for(const marker of ['const iconTiles = {','const suiteGlyphs={']){
+  const start=html.indexOf(marker),end=html.indexOf('};',start);
+  if(start<0||end<0)throw Error(`Tabela de ícones Nimbo ausente: ${marker}`);
+  const names=[...html.slice(start,end).matchAll(/^\s*([\w.-]+)\s*:/gm)].map(m=>m[1]);
+  const missing=names.filter(name=>!whiteSurMap[name]);
+  if(missing.length)throw Error(`Ícones WhiteSur sem associação: ${missing.join(', ')}`);
+}
+const whiteSurData=Object.fromEntries(Object.entries(whiteSurMap).map(([name,file])=>{
+  const icon=readFileSync(join(root,'public','whitesur',file));
+  if(!icon.toString('utf8',0,300).includes('<svg'))throw Error(`SVG inválido: ${file}`);
+  return [name,icon.toString('base64')];
+}));
+if(!html.includes('const appArt = name => {'))throw Error('Gerador de ícones do Nimbo ausente.');
+html=html.replace('const appArt = name => {',
+  `const WHITE_SUR_ICONS=Object.freeze(${JSON.stringify(whiteSurData)});\nconst appArt = name => {\n  const whiteSurSvg=WHITE_SUR_ICONS[name];\n  if(whiteSurSvg)return '<img class="app-art whitesur-art" alt="" aria-hidden="true" draggable="false" src="data:image/svg+xml;base64,'+whiteSurSvg+'">';`);
+html=html.replace('0.14.1 · Beta 4 PWA', '0.14.4 · Beta 4 · WhiteSur · Ícones originais');
 
 const finalPath=join(dist,'index.html');writeFileSync(finalPath,html,'utf8');
 const contentHash=sha(Buffer.from(html));
 const manifest={
  name:'Nimbo OS — Seu espaço',short_name:'Nimbo OS',description:'Área de trabalho personalizável com 50 miniaplicativos, Loja, dock e arquivos locais.',
  id:'./',start_url:'./',scope:'./',display:'standalone',orientation:'any',
- background_color:'#b5d8f2',theme_color:'#287ee4',lang:'pt-BR',dir:'ltr',categories:['productivity','utilities'],
+ background_color:'#f5f5f5',theme_color:'#0860f2',lang:'pt-BR',dir:'ltr',categories:['productivity','utilities'],
  prefer_related_applications:false,
  icons:[{src:'./icons/icon-192.png',sizes:'192x192',type:'image/png',purpose:'any'},{src:'./icons/icon-512.png',sizes:'512x512',type:'image/png',purpose:'any'},{src:'./icons/icon-maskable-512.png',sizes:'512x512',type:'image/png',purpose:'maskable'}]
 };
 writeFileSync(join(dist,'manifest.webmanifest'),JSON.stringify(manifest,null,2)+'\n');
-const catalog={application:'nimbo-os',version:release,build:contentHash,apps_bundled:50,release_notes:'Nova interface inspirada no macOS: barra de menus, dock, ícones, janelas, vidro e paleta azul. Mantém os 50 miniaplicativos, PWA e atualizador.'};
+const catalog={application:'nimbo-os',version:release,build:contentHash,apps_bundled:50,release_notes:'Ícones SVG originais WhiteSur incorporados aos módulos e miniaplicativos; tema WhiteSur GTK adaptado a janelas, barras, menus, botões e campos. Mantém o PWA, modo offline e atualizador.'};
 writeFileSync(join(dist,'updates.json'),JSON.stringify(catalog,null,2)+'\n');
 mkdirSync(join(dist,'icons'),{recursive:true});
 for(const name of ['icon-192.png','icon-512.png','icon-maskable-512.png','apple-touch-icon.png'])copyFileSync(join(root,'public','icons',name),join(dist,'icons',name));

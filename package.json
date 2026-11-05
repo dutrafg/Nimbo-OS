@@ -1,6 +1,6 @@
 {
   "name": "nimbo-os",
-  "version": "0.14.2-beta.4",
+  "version": "0.14.4-beta.4",
   "private": true,
   "description": "Nimbo OS — PWA instalável offline, 50 miniaplicativos",
   "scripts": {
