@@ -34,8 +34,12 @@ As novas preferências, marcações, revisões e relatórios salvos ficam em `lo
 - Os painéis de dados trabalham com entradas locais do usuário, não sincronizam bancos, contas, email ou serviços de terceiros.
 - Os testes automatizados não comprovam desempenho prolongado, suporte a codecs, impressão/arquivos reais no Android, permissões de pastas ou atualizações online.
 - Esta versão foi disponibilizada na branch `main` como prévia Beta 4; não é uma versão estável.
+## Testes locais
+
+Execute `npm run build` para reconstruir e verificar o HTML. Para testes de interface, instale Python 3 e `playwright`, execute `python -m playwright install chromium` (ou defina `NIMBO_CHROMIUM_PATH` com o binário disponível) e rode `python tests/test_regression.py`, `python tests/test_interactions.py` e `python tests/test_backup.py`. Os resultados são gravados em `reports/`. A automação não substitui os testes em dispositivos reais.
+
 ## Implantação
 
 - **Vercel:** importe este repositório. A configuração `vercel.json` executa `npm run build` e publica `dist/`. Não exige serviços externos na execução do aplicativo.
-- **GitHub Pages:** ative Pages com origem GitHub Actions nas configurações do repositório. O workflow gera e envia `dist/`.
+- **GitHub Pages:** ative Pages com origem GitHub Actions em Settings → Pages. Até essa habilitação, o workflow apenas compila/verifica integridade; depois, também publica `dist/`.
 - **Integridade:** `npm run build` falha se o HTML não coincidir com tamanho e SHA-256 documentados no manifesto. A versão é Beta e requer homologação em dispositivos reais.

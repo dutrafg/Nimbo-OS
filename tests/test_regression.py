@@ -1,11 +1,14 @@
 from pathlib import Path
+import os
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+CHROMIUM_BIN = os.environ.get('NIMBO_CHROMIUM_PATH') or ('/usr/bin/chromium' if Path('/usr/bin/chromium').exists() else None)
 import json,traceback
 from playwright.sync_api import sync_playwright
-source=Path('/mnt/data/nimbo_work/upgrades/build/index.html').read_text()
+source=(PROJECT_ROOT / 'dist' / 'index.html').read_text()
 allids=['sound','cinema','pdf-viewer','browser','converter','stopwatch','contacts','budget','habits','kanban','shopping','journal','flashcards','bookmarks','reading','recipes','inventory','goals','planner','snippets','markdown','json','csv','diff','textlab','regex','base64','urltool','unicode','hash','uuid','mail','colors','gradient','image-editor','datecalc','worldclock','passwords','metronome','tone']
 results={}
 with sync_playwright() as p:
- browser=p.chromium.launch(headless=True,executable_path='/usr/bin/chromium',args=['--no-sandbox','--disable-dev-shm-usage','--js-flags=--max-old-space-size=4096'])
+ browser=p.chromium.launch(headless=True,executable_path=CHROMIUM_BIN,args=['--no-sandbox','--disable-dev-shm-usage','--js-flags=--max-old-space-size=4096'])
  for width in [1440,390]:
   ctx=browser.new_context(viewport={'width':width,'height':900 if width==1440 else 844},accept_downloads=True)
   page=ctx.new_page();page.set_default_timeout(2500);errors=[]
@@ -40,4 +43,4 @@ with sync_playwright() as p:
   print(width,'catalog',len(ids),'mounted',len(opened),'enhanced',len(enhanced),'errors',errors[:5], 'fails',fails[:6],flush=True)
   ctx.close()
  browser.close()
-Path('/mnt/data/nimbo_work/upgrades/build/QA_regression.json').write_text(json.dumps(results,ensure_ascii=False,indent=2))
+(PROJECT_ROOT / 'reports' / 'QA_regression.json').write_text(json.dumps(results,ensure_ascii=False,indent=2))

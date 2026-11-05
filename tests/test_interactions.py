@@ -1,9 +1,12 @@
 from pathlib import Path
+import os
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+CHROMIUM_BIN = os.environ.get('NIMBO_CHROMIUM_PATH') or ('/usr/bin/chromium' if Path('/usr/bin/chromium').exists() else None)
 import json,traceback
 from playwright.sync_api import sync_playwright
-html=Path('/mnt/data/nimbo_work/upgrades/build/index.html').read_text();res={}
+html=(PROJECT_ROOT / 'dist' / 'index.html').read_text();res={}
 with sync_playwright() as p:
- browser=p.chromium.launch(headless=True,executable_path='/usr/bin/chromium',args=['--no-sandbox','--disable-dev-shm-usage'])
+ browser=p.chromium.launch(headless=True,executable_path=CHROMIUM_BIN,args=['--no-sandbox','--disable-dev-shm-usage'])
  context=browser.new_context(viewport={'width':1440,'height':900},accept_downloads=True)
  page=context.new_page();page.set_default_timeout(6500);errs=[]
  page.on('pageerror',lambda exc:errs.append(str(exc)))
@@ -56,4 +59,4 @@ with sync_playwright() as p:
   except Exception as e:res[id]={'passed':False,'exception':str(e)[:200]}
  res['error_count']=len(errs);res['errors']=errs[:15];print(json.dumps(res,ensure_ascii=False,indent=2)[:11000],flush=True)
  context.close();browser.close()
-Path('/mnt/data/nimbo_work/upgrades/build/QA_interactions.json').write_text(json.dumps(res,ensure_ascii=False,indent=2))
+(PROJECT_ROOT / 'reports' / 'QA_interactions.json').write_text(json.dumps(res,ensure_ascii=False,indent=2))

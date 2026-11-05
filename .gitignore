@@ -1,0 +1,5 @@
+dist/
+base/
+__pycache__/
+.pytest_cache/
+reports/QA_Test_Backup.json
