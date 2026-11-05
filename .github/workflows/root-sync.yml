@@ -1,0 +1,50 @@
+name: Sincronizar PWA compilado na raiz
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'index.html'
+      - 'manifest.webmanifest'
+      - 'sw.js'
+      - 'updates.json'
+      - 'icons/**'
+      - '.nojekyll'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: nimbo-root-sync
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter fontes da main
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Compilar Nimbo e verificar integridade
+        run: npm run build && npm run test:pwa
+      - name: Sincronizar PWA na raiz para Pages em modo branch
+        run: |
+          set -euo pipefail
+          cp dist/index.html ./index.html
+          cp dist/manifest.webmanifest ./manifest.webmanifest
+          cp dist/sw.js ./sw.js
+          cp dist/updates.json ./updates.json
+          mkdir -p ./icons
+          cp dist/icons/* ./icons/
+          touch .nojekyll
+          git add -- index.html manifest.webmanifest sw.js updates.json icons .nojekyll
+          if git diff --cached --quiet; then
+            echo 'Arquivos compilados já estão atualizados.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'build: PWA instalado na raiz da main [skip ci]'
+          git push origin HEAD:main
