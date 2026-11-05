@@ -39,10 +39,10 @@ assert.equal(activated,false,'update should never activate before confirmation')
 const result={};
 handlers.fetch({request:{url:'https://nimbo.test/',method:'GET',mode:'navigate'},respondWith(p){result.navigation=p}});
 const response=await result.navigation;
-assert.ok((await response.text()).includes('Nimbo OS 0.14.1'));
+assert.ok((await response.text()).includes('Nimbo OS 0.14.2'));
 online=false;
 handlers.fetch({request:{url:'https://nimbo.test/',method:'GET',mode:'navigate'},respondWith(p){result.offline=p}});
-assert.ok((await (await result.offline).text()).includes('Nimbo OS 0.14.1'));
+assert.ok((await (await result.offline).text()).includes('Nimbo OS 0.14.2'));
 handlers.message({data:{type:'NIMBO_APPLY_UPDATE'}});
 assert.equal(activated,true);
 let completion;

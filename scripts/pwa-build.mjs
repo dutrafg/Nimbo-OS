@@ -1,9 +1,10 @@
 /** Enriquecimento reprodutível do Nimbo OS Beta 4 com PWA e atualização integrada. */
 import {readFileSync, writeFileSync, mkdirSync, copyFileSync} from 'node:fs';
-import {resolve, join} from 'node:path';
+import {resolve, join, dirname} from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
-const root=resolve(import.meta.dirname,'..');
-const release='0.14.1-beta.4';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+const release='0.14.2-beta.4';
 const dist=join(root,'dist');mkdirSync(dist,{recursive:true});
 const sha=buffer=>createHash('sha256').update(buffer).digest('hex');
 let html=readFileSync(join(dist,'index.html'),'utf8');
@@ -42,17 +43,32 @@ html=html.slice(0,originalStart)+replacement+'\n'+html.slice(originalEnd);
 const pwaScript=readFileSync(join(root,'src','pwa-client.js'),'utf8');
 if(pwaScript.includes('</script'))throw Error('Script incorreto para incorporação inline.');
 html=html.replace('</body>',`<script>\n${pwaScript}\n</script>\n</body>`);
+// Mac-inspired Nimbo visual shell, preserving the original app model and data.
+if (!html.includes("const DOCK_DEFAULT={position:'left',size:46")) {
+  throw Error('Configuração original da dock não encontrada.');
+}
+html=html.replace("const DOCK_DEFAULT={position:'left',size:46",
+                  "const DOCK_DEFAULT={position:'bottom',size:48");
+html=html.replace("tone: '#286e62'", "tone: '#287ee4'");
+html=html.replace('content="#e5eee9"', 'content="#287ee4"');
+const macCSS=readFileSync(join(root,'src','mac-ui.css'),'utf8');
+const macJS=readFileSync(join(root,'src','mac-ui.js'),'utf8');
+if (macJS.includes('</script')) throw Error('Script de interface inválido.');
+html=html.replace('</style>', '\n'+macCSS+'\n</style>');
+html=html.replace('</body>', '<script>\n'+macJS+'\n</script>\n</body>');
+html=html.replace('0.14.1 · Beta 4 PWA', '0.14.2 · Beta 4 · Edição macOS');
+
 const finalPath=join(dist,'index.html');writeFileSync(finalPath,html,'utf8');
 const contentHash=sha(Buffer.from(html));
 const manifest={
  name:'Nimbo OS — Seu espaço',short_name:'Nimbo OS',description:'Área de trabalho personalizável com 50 miniaplicativos, Loja, dock e arquivos locais.',
  id:'./',start_url:'./',scope:'./',display:'standalone',orientation:'any',
- background_color:'#e5eee9',theme_color:'#387f76',lang:'pt-BR',dir:'ltr',categories:['productivity','utilities'],
+ background_color:'#b5d8f2',theme_color:'#287ee4',lang:'pt-BR',dir:'ltr',categories:['productivity','utilities'],
  prefer_related_applications:false,
  icons:[{src:'./icons/icon-192.png',sizes:'192x192',type:'image/png',purpose:'any'},{src:'./icons/icon-512.png',sizes:'512x512',type:'image/png',purpose:'any'},{src:'./icons/icon-maskable-512.png',sizes:'512x512',type:'image/png',purpose:'maskable'}]
 };
 writeFileSync(join(dist,'manifest.webmanifest'),JSON.stringify(manifest,null,2)+'\n');
-const catalog={application:'nimbo-os',version:release,build:contentHash,apps_bundled:50,release_notes:'PWA instalável, atualização do sistema e dos 50 miniaplicativos em um único pacote, cache offline e proteção dos dados locais.'};
+const catalog={application:'nimbo-os',version:release,build:contentHash,apps_bundled:50,release_notes:'Nova interface inspirada no macOS: barra de menus, dock, ícones, janelas, vidro e paleta azul. Mantém os 50 miniaplicativos, PWA e atualizador.'};
 writeFileSync(join(dist,'updates.json'),JSON.stringify(catalog,null,2)+'\n');
 mkdirSync(join(dist,'icons'),{recursive:true});
 for(const name of ['icon-192.png','icon-512.png','icon-maskable-512.png','apple-touch-icon.png'])copyFileSync(join(root,'public','icons',name),join(dist,'icons',name));

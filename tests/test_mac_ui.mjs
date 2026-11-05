@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {join,dirname,resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+const html=readFileSync(join(root,'dist','index.html'),'utf8');
+const manifest=JSON.parse(readFileSync(join(root,'dist','manifest.webmanifest'),'utf8'));
+const data=JSON.parse(readFileSync(join(root,'dist','updates.json'),'utf8'));
+assert.equal(data.version,'0.14.2-beta.4');
+assert.equal(data.apps_bundled,50);
+assert.equal(manifest.theme_color,'#287ee4');
+assert.ok(html.includes("pop.id='mac-popover'"));
+assert.ok(html.includes("const DOCK_DEFAULT={position:'bottom',size:48"));
+assert.ok(html.includes('window.NimboMacUI=Object.freeze'));
+assert.ok(html.includes('nimbo-workspace-grid'));
+assert.ok(html.includes('function updateCenter(root,context)'));
+assert.equal((html.match(/<script>/g)||[]).length,3);
+console.log('PASS: versão, 50 miniapps, menu, dock, janela, dashboard, atualização e paleta mac-inspired');

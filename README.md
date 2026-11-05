@@ -1,10 +1,21 @@
-# Nimbo OS 0.14.1-beta.4 (PWA) · Código consolidado até o lote 10
+# Nimbo OS 0.14.2-beta.4 · PWA · Edição visual inspirada no macOS
 
 > **Abrir o Nimbo OS:** https://dutrafg.github.io/Nimbo-OS/  
 > A versão PWA compilada também é publicada na raiz (`index.html`, `sw.js`, `manifest.webmanifest` e `icons/`) para compatibilidade com a publicação pela branch.
 
 
 Este repositório publica o Nimbo OS Beta 4. O HTML completo foi armazenado em partes comprimidas em `packed/index/` para manter os envios confiáveis; o comando `npm run build` reconstrói o arquivo em `dist/index.html` e verifica seu SHA-256. O conteúdo executável é idêntico ao artefato validado.
+
+## Nova interface Nimbo · 0.14.2 Beta 4
+
+Inspirada nos padrões de desktop do macOS Tahoe, com identidade visual original: barra de menus, central de controle, dock com ícones em gradiente, janelas arredondadas com botões de controle, wallpaper azul, painéis translúcidos e atalhos. Os 50 miniaplicativos, dados do usuário, Loja, dashboard, atualização e PWA permanecem preservados.
+
+- **PWA:** `npm run build` gera `dist/index.html`, manifesto, ícones, `sw.js` e `updates.json` atualizados.
+- **Testes:** `npm run test:pwa` executa validação dos recursos PWA, ciclo offline simulado e interface macOS.
+- **Código de interface:** `src/mac-ui.css` e `src/mac-ui.js` são incorporados no HTML final pelo build.
+- **Auditoria:** `docs/MACOS_DESIGN_QA.md` documenta testes, evidências e limitações.
+
+A aparência é inspirada em padrões de interface, sem distribuir ativos proprietários da Apple. A instalação PWA exige HTTPS e testes em dispositivos reais antes de liberar uma versão estável.
 
 ## Conteúdo
 - `packed/index/`: HTML consolidado, autocontido, repartido em blocos de base64 gzip para armazenamento Git. A reconstrução gera `dist/index.html`.

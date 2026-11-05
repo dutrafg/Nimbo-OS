@@ -1,15 +1,15 @@
 {
   "name": "nimbo-os",
-  "version": "0.14.1-beta.4",
+  "version": "0.14.2-beta.4",
   "private": true,
   "description": "Nimbo OS — PWA instalável offline, 50 miniaplicativos",
   "scripts": {
     "build": "node scripts/assemble.mjs",
     "pwa:build": "node scripts/pwa-build.mjs",
     "restore:source": "node scripts/assemble.mjs --restore-source",
-    "test:pwa": "node tests/test_pwa_assets.mjs && node tests/test_sw_lifecycle.mjs"
+    "test:pwa": "node tests/test_pwa_assets.mjs && node tests/test_sw_lifecycle.mjs && node tests/test_mac_ui.mjs"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20.11"
   }
 }

@@ -7,7 +7,7 @@ const html=readFileSync(join(dist,'index.html'),'utf8');
 const updates=JSON.parse(readFileSync(join(dist,'updates.json'),'utf8'));
 const manifest=JSON.parse(readFileSync(join(dist,'manifest.webmanifest'),'utf8'));
 const sw=readFileSync(join(dist,'sw.js'),'utf8');
-assert.equal(updates.version,'0.14.1-beta.4');
+assert.equal(updates.version,JSON.parse(readFileSync(join(root,'package.json'),'utf8')).version);
 assert.equal(updates.apps_bundled,50);
 assert.equal(manifest.display,'standalone');
 assert.equal(manifest.scope,'./');
@@ -20,17 +20,20 @@ for(const i of [...manifest.icons,'./icons/apple-touch-icon.png']){
  const buf=readFileSync(join(dist,file));
  assert.equal(buf.subarray(0,8).toString('hex'),'89504e470d0a1a0a');
 }
-assert.ok(html.includes("const RELEASE = '0.14.1-beta.4';"));
+assert.ok(html.includes(`const RELEASE = '${updates.version}';`));
 assert.ok(html.includes('<link rel="manifest" href="./manifest.webmanifest">'));
 assert.ok(html.includes('window.NimboPWA = Object.freeze'));
 assert.ok(html.includes("button class=\"button primary\" id=\"update-check\""));
 assert.equal((html.match(/const NU_LOTS=/g)||[]).length,1);
 assert.equal((html.match(/function updateCenter\(root,context\)/g)||[]).length,1);
-assert.equal((html.match(/<script>/g)||[]).length,2);
-assert.equal((html.match(/<\/script>/g)||[]).length,2);
+assert.equal((html.match(/<script>/g)||[]).length,3);
+assert.equal((html.match(/<\/script>/g)||[]).length,3);
 assert.ok(sw.includes("if(event.data?.type==='NIMBO_APPLY_UPDATE')self.skipWaiting()"));
 assert.ok(!sw.includes("install',event=>{self.skipWaiting()"));
 const scripts=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(x=>x[1]);
 for(const script of scripts)new vm.Script(script);
 new vm.Script(sw);
-console.log('PASS: PWA manifest, 4 PNG icons, updates.json, 2 HTML JS blocks, version, updater, 50 apps, service worker syntax');
+assert.ok(html.includes('window.NimboMacUI=Object.freeze'));
+assert.ok(html.includes('id="mac-menus"') === false); // inserted at runtime
+assert.ok(html.includes('Nimbo OS – Mac-inspired'));
+console.log('PASS: PWA, updated icons, manifesto, menus macOS, 3 JS blocks, 50 apps, updater, Service Worker');
