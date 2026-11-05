@@ -1,0 +1,7 @@
+{
+  "application": "nimbo-os",
+  "version": "0.14.1-beta.4",
+  "build": "f03d8385eb68111aecfa38e668674c9482fe92bcc1ad5c779af66ee1fb93a9dc",
+  "apps_bundled": 50,
+  "release_notes": "PWA instalável, atualização do sistema e dos 50 miniaplicativos em um único pacote, cache offline e proteção dos dados locais."
+}
