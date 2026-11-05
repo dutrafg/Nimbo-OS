@@ -1,0 +1,182 @@
+{
+  "converter": {
+    "passed": true,
+    "output": [
+      "0,001 kJ"
+    ]
+  },
+  "colors": {
+    "passed": true,
+    "output": [
+      "#287d68 · #68287d · #7d6828"
+    ]
+  },
+  "gradient": {
+    "passed": true,
+    "output": []
+  },
+  "datecalc": {
+    "passed": true,
+    "output": [
+      "Semana ISO 45 / 2026"
+    ]
+  },
+  "worldclock": {
+    "passed": true,
+    "output": [
+      "America/Sao_Paulo: GMT-3 · Europe/Lisbon: GMT"
+    ]
+  },
+  "passwords": {
+    "passed": true,
+    "output": [
+      "Frase gerada com aleatoriedade do navegador. Não foi guardada."
+    ]
+  },
+  "metronome": {
+    "passed": true,
+    "output": [
+      "750.0 ms por batida"
+    ]
+  },
+  "tone": {
+    "passed": true,
+    "output": [
+      "261.626 Hz (temperamento igual, A4 = 440 Hz)"
+    ]
+  },
+  "markdown": {
+    "passed": true,
+    "output": "- [Título](#titulo)\n  - [Seção](#secao)"
+  },
+  "json": {
+    "passed": true,
+    "output": "\"A\""
+  },
+  "csv": {
+    "passed": true,
+    "output": "\"nome\",\"nota\"\n\"A\",\"1\""
+  },
+  "diff": {
+    "passed": true,
+    "output": "Linhas com espaços à direita no primeiro: 1\nLinhas com espaços à direita no segundo: nenhuma"
+  },
+  "textlab": {
+    "passed": true,
+    "output": "ola-mundo"
+  },
+  "regex": {
+    "passed": true,
+    "output": "{\n  \"numero\": \"\\\\d+(?:[.,]\\\\d+)?\",\n  \"email\": \"[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,}\",\n  \"dataISO\": \"\\\\b\\\\d{4}-\\\\d{2}-\\\\d{2}\\\\b\",\n  \"hexadecimal\": \"#"
+  },
+  "base64": {
+    "passed": true,
+    "output": "Sintaxe Base64 compatível."
+  },
+  "urltool": {
+    "passed": true,
+    "output": "https://a.com/?k=y"
+  },
+  "unicode": {
+    "passed": true,
+    "output": "café"
+  },
+  "hash": {
+    "passed": true,
+    "output": "{\n  \"caracteres\": 3,\n  \"bytesUTF8\": 3,\n  \"linhas\": 1\n}"
+  },
+  "uuid": {
+    "passed": true,
+    "output": "{\n  \"quantidade\": 1,\n  \"unicos\": 1,\n  \"duplicados\": 0\n}"
+  },
+  "mail": {
+    "passed": true,
+    "output": "{\n  \"from\": true,\n  \"to\": true,\n  \"subject\": true,\n  \"date\": false,\n  \"format\": \"text/plain\",\n  \"warnings\": []\n}"
+  },
+  "contacts": {
+    "passed": true,
+    "outputs": [
+      ""
+    ]
+  },
+  "budget": {
+    "passed": true,
+    "outputs": [
+      ""
+    ]
+  },
+  "habits": {
+    "passed": true,
+    "outputs": [
+      ""
+    ]
+  },
+  "kanban": {
+    "passed": true,
+    "outputs": [
+      ""
+    ]
+  },
+  "shopping": {
+    "passed": true,
+    "outputs": [
+      ""
+    ]
+  },
+  "journal": {
+    "passed": true,
+    "outputs": [
+      ""
+    ]
+  },
+  "flashcards": {
+    "passed": true,
+    "outputs": [
+      ""
+    ]
+  },
+  "bookmarks": {
+    "passed": true,
+    "outputs": [
+      ""
+    ]
+  },
+  "reading": {
+    "passed": true,
+    "outputs": [
+      ""
+    ]
+  },
+  "recipes": {
+    "passed": true,
+    "outputs": [
+      ""
+    ]
+  },
+  "inventory": {
+    "passed": true,
+    "outputs": [
+      ""
+    ]
+  },
+  "goals": {
+    "passed": true,
+    "outputs": [
+      ""
+    ]
+  },
+  "planner": {
+    "passed": true,
+    "outputs": [
+      ""
+    ]
+  },
+  "snippets": {
+    "passed": true,
+    "outputs": [
+      ""
+    ]
+  },
+  "error_count": 0,
+  "errors": []
+}

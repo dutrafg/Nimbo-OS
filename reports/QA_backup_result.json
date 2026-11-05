@@ -1,0 +1,18 @@
+{
+  "file": "Nimbo_Backup_2026-11-05.json",
+  "aux_key_present": true,
+  "existing_record_key": true,
+  "decoded_aux": {
+    "habits-progress": {
+      "a": [
+        "2026-11-05"
+      ]
+    },
+    "flashcards-review": {
+      "b": {
+        "due": "2026-11-07"
+      }
+    }
+  },
+  "errors": []
+}
