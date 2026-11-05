@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#e5eee9">
+  <meta name="theme-color" content="#287ee4">
   <meta name="description" content="Nimbo OS, um desktop web original para criar e organizar.">
-  <title>Nimbo OS 0.14.1 · Beta 4 PWA — Seu espaço</title>
+  <title>Nimbo OS 0.14.2 · Beta 4 · Edição macOS — Seu espaço</title>
   
-<meta name="nimbo-version" content="0.14.1-beta.4">
+<meta name="nimbo-version" content="0.14.2-beta.4">
   <meta name="application-name" content="Nimbo OS">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -330,6 +330,279 @@ body:has(#temporary:not([hidden])) #desktop-widgets .nimbo-workspace{padding-top
 #nimbo-pwa-update-notice button[data-pwa-action="apply"]{background:var(--accent,#387f76);border-color:transparent;color:#fff}
 @media(max-width:520px){#nimbo-pwa-update-notice{top:70px;right:9px;width:calc(100vw - 18px)}.nimbo-pwa-actions button{flex:1 1 100%}}
 @media(prefers-reduced-motion:reduce){#nimbo-pwa-update-notice{transition:none!important}}
+
+
+/* Nimbo OS / Mac-inspired UI · original visual identity, no Apple assets */
+:root{
+ color-scheme:light;
+ --accent:#287ee4;--accent-ink:#176fce;--ink:#192b44;--muted:#63758b;
+ --panel:#f8faff;--soft:#edf3fb;--line:#dce4ef;--sidebar:#e7edf6;
+ --glass:rgba(247,250,255,.74);--shadow:0 34px 90px #14243d35,0 10px 26px #142b3b1e;
+ --mac-radius:18px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;
+}
+html[data-mode=dark]{
+ color-scheme:dark;--accent:#70adff;--accent-ink:#91beff;--ink:#eef3ff;--muted:#adbdd3;
+ --panel:#202637;--soft:#2b3448;--line:#485369;--sidebar:#252c3f;
+ --glass:rgba(30,36,53,.82);--shadow:0 36px 90px #080c18b0,0 10px 24px #080c1880;
+}
+body{background:#4a8ac8;color:var(--ink);letter-spacing:-.008em}
+h1,h2,h3{letter-spacing:-.035em}h1{font-weight:690}h2{font-weight:680}
+button{transition:background-color .16s,box-shadow .16s,filter .16s}
+#landscape{
+ background:
+  radial-gradient(ellipse at 82% 7%,rgba(196,235,255,.93),transparent 38%),
+  radial-gradient(ellipse at 6% 72%,#afd2dc 0%,transparent 40%),
+  radial-gradient(ellipse at 81% 88%,#083b8c 0%,transparent 48%),
+  linear-gradient(151deg,#77b8e5 0%,#b4cfe3 27%,#609fd6 52%,#1462ae 72%,#052e69 100%)!important;
+}
+#landscape:before{
+ content:"";position:absolute;inset:-15%;
+ background:conic-gradient(from 205deg at 62% 47%, transparent 0 11%,#a6daecbb 16%,#d5e7f6 22%,#5bb0db 29%,#1d71c5 40%,transparent 54%);
+ filter:blur(20px);transform:rotate(-14deg) scale(1.1);opacity:.81;
+}
+#landscape:after{
+ content:"";position:absolute;inset:0;
+ background:linear-gradient(145deg,#ffffff30 0,transparent 31%,#06447d25 62%,#071c4b66 100%);
+}
+#landscape .halo.one{
+ width:120vw;height:48vw;top:-33vw;left:-19vw;right:auto;
+ border-radius:50%;transform:rotate(-18deg);filter:blur(14px);
+ background:linear-gradient(165deg,#d0efffd0,#58a3d55c 65%,transparent);
+ box-shadow:0 20px 110px #e2fdff65;
+}
+#landscape .halo.two{width:110vw;height:58vw;bottom:-39vw;left:-13vw;
+ transform:rotate(-21deg);filter:blur(12px);
+ background:linear-gradient(40deg,#073d89ab,#5aade0b2 55%,#b7e0f1c2);}
+#landscape .ribbon{width:125vw;height:35vw;top:35%;left:5%;
+ transform:rotate(-24deg);background:linear-gradient(180deg,#d1edff45,#7dc3e988 40%,#3b89d03d 70%,transparent);
+ border-color:#f4ffff5e;filter:blur(9px)}
+html[data-wallpaper="1"] #landscape{filter:hue-rotate(18deg) saturate(.8)}
+html[data-wallpaper="2"] #landscape{filter:hue-rotate(162deg) saturate(.65)}
+html[data-mode=dark] #landscape{filter:brightness(.52) saturate(.87)}
+html[data-wallpaper="1"][data-mode=dark] #landscape{filter:brightness(.51) hue-rotate(18deg) saturate(.8)}
+html[data-wallpaper="2"][data-mode=dark] #landscape{filter:brightness(.51) hue-rotate(162deg) saturate(.65)}
+#systembar{
+ height:43px!important;min-height:43px;padding:0 14px 0 17px!important;gap:13px!important;
+ position:relative;z-index:850;overflow:visible;
+ background:rgba(233,245,255,.31)!important;
+ border-bottom:1px solid #ffffff60!important;
+ box-shadow:inset 0 1px #ffffff4d,0 1px 12px #102f4510;
+ -webkit-backdrop-filter:blur(22px) saturate(1.6)!important;
+ backdrop-filter:blur(22px) saturate(1.6)!important;
+}
+html[data-mode=dark] #systembar{background:rgba(14,26,51,.55)!important;border-bottom-color:#ffffff21!important}
+#systembar .wordmark{gap:6px!important;font-size:12px;font-weight:750;letter-spacing:-.03em;
+ padding:4px 8px 4px 0;border-radius:8px;color:#142f50}
+html[data-mode=dark] #systembar .wordmark{color:#fff}
+#systembar .wordmark>span{width:25px;height:25px;font-size:20px;padding-bottom:3px;
+ border-radius:8px;background:linear-gradient(135deg,#b7eeff,#45a6f2 47%,#1d5fc9);
+ color:#fff;text-shadow:0 1px 4px #083c92;box-shadow:inset 0 1px #ffffffaa,0 2px 9px #0c4d9d55}
+#systembar .system-divider{display:none}
+#systembar #current-app{font-weight:680;font-size:12px;color:#16314d;min-width:0;max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html[data-mode=dark] #systembar #current-app{color:#f4f6ff}
+#systembar #space-switch{margin-left:auto;display:flex;border:0;background:#ffffff24;border-radius:8px;padding:2px}
+#systembar #space-switch button{font-weight:590;color:#284968;padding:5px 9px;font-size:10px;border-radius:7px}
+#systembar #space-switch button.current{box-shadow:0 1px 6px #173f692e;background:#ffffffae;color:#1468b9}
+#systembar #global-search{width:auto;min-width:33px;height:29px;padding:6px 8px;margin-left:0;
+ background:transparent;border:0;border-radius:8px;color:#214563}
+#systembar #global-search span,#systembar #global-search kbd{display:none}
+#systembar #notices-button{height:29px;min-width:30px;color:#214563}
+#systembar #system-time{font-weight:600;color:#193451;font-size:11px;white-space:nowrap}
+html[data-mode=dark] #systembar #global-search,html[data-mode=dark] #systembar #notices-button,
+html[data-mode=dark] #systembar #system-time,html[data-mode=dark] #systembar #space-switch button{color:#e8f1ff}
+#systembar button:hover{background:#ffffff65}
+#mac-menus{display:flex;align-items:center;gap:1px;min-width:0;flex-shrink:1}
+#mac-menus>button{font-size:11px;font-weight:560;color:#1e3956;border-radius:6px;padding:6px 8px;white-space:nowrap}
+#mac-menus>button[aria-expanded="true"]{background:#ffffffa6;box-shadow:0 1px 6px #174d8733}
+html[data-mode=dark] #mac-menus>button{color:#eef3ff}
+#mac-status{display:flex;align-items:center;gap:5px}
+#mac-status button{display:grid;place-items:center;min-height:29px;min-width:29px;border-radius:7px;padding:4px}
+#mac-status svg{height:15px;width:15px;stroke-width:2}
+#mac-status .net-dot{width:7px;height:7px;border-radius:50%;background:#219e7c;box-shadow:0 0 0 2px #ffffffa0}
+#mac-status .net-dot.offline{background:#e7a75c}
+#mac-popover{
+ position:fixed;z-index:30000;min-width:220px;max-width:min(320px,calc(100vw - 24px));
+ padding:7px;background:#f7faffed;color:#23314a;border:1px solid #ffffffcf;
+ border-radius:13px;box-shadow:0 22px 70px #11234261,0 3px 10px #10203725;
+ -webkit-backdrop-filter:blur(36px) saturate(1.5);backdrop-filter:blur(36px) saturate(1.5)}
+html[data-mode=dark] #mac-popover{background:#222c40ef;color:#f0f4fb;border-color:#ffffff20}
+#mac-popover[hidden]{display:none!important}
+#mac-popover button{display:flex;align-items:center;justify-content:space-between;gap:25px;
+ width:100%;text-align:left;padding:9px 11px;font-size:12px;border-radius:7px;color:inherit}
+#mac-popover button:hover,#mac-popover button:focus-visible{background:#3b8ddd;color:#fff}
+#mac-popover button:disabled{opacity:.38;background:none}
+#mac-popover kbd{font-family:inherit;color:#8291a1;font-size:10px}
+#mac-popover button:hover kbd{color:#fff}
+#mac-popover hr{border:0;border-top:1px solid #8796ab35;margin:5px 7px}
+#mac-popover .mac-menu-caption{display:block;padding:7px 11px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#7b8c9d}
+nimbo-desktop#desktop{inset:43px 0 0!important}
+#desktop-widgets .nimbo-workspace{max-width:1740px;padding:25px clamp(20px,2.4vw,39px) 28px}
+#desktop-widgets .nimbo-workspace-heading{margin-bottom:16px}
+#desktop-widgets .nimbo-workspace-heading h1{font-size:clamp(25px,2.5vw,34px);letter-spacing:-.05em;
+ color:#0f2f50;text-shadow:0 1px 2px #ffffff66}
+#desktop-widgets .nimbo-workspace-heading p{color:#34516d}
+#desktop-widgets .nimbo-eyebrow{color:#135da6}
+#desktop-widgets .nimbo-widget,.nimbo-workspace-editor{
+ border:1px solid #ffffffad;border-radius:19px;
+ background:rgba(250,252,255,.75);
+ box-shadow:0 5px 25px #163c5d24,inset 0 1px 0 #ffffffd9;
+ -webkit-backdrop-filter:blur(22px) saturate(1.25);backdrop-filter:blur(22px) saturate(1.25);
+}
+#desktop-widgets .nimbo-widget:hover{box-shadow:0 8px 35px #163c5d30,inset 0 1px 0 #fff}
+#desktop-widgets .nimbo-widget-heading h3{font-size:13px;color:#20334a}
+#desktop-widgets .nimbo-welcome{background:linear-gradient(115deg,#153b76 0%,#236ec2 55%,#5eacd9 100%);
+ border:1px solid #ffffff75;border-radius:16px;box-shadow:inset 0 1px #ffffff5f,0 7px 20px #063a8750}
+#desktop-widgets .nimbo-welcome .nimbo-primary-action{background:#ffffffed;color:#17509a}
+.nimbo-metric,.nimbo-action-grid button{border-color:#e2eaf5;background:#f5f8ffdc}
+.nimbo-alert.warn{background:#fff6e9}
+#desktop-widgets .nimbo-widget-heading button,.nimbo-workspace-heading-actions button{
+ background:#ffffff91;border:1px solid #ffffffb8;border-radius:10px}
+#desktop-folders button{color:#f6faff;text-shadow:0 2px 7px #07295b9e;font-weight:630}
+#desktop-folders .app-art{filter:drop-shadow(0 6px 10px #092c5470)}
+.desktop-greeting,.desktop-signature{color:#ecf7ff;text-shadow:0 2px 12px #154270}
+.desktop-signature strong{color:#fff}
+#shelf{
+ --dock-blur:22px;
+ border-radius:23px!important;
+ background:rgba(237,244,252,.50)!important;
+ border:1px solid #ffffff8a!important;
+ box-shadow:0 11px 42px #071f4a59,inset 0 1px #ffffffbe!important;
+ -webkit-backdrop-filter:blur(var(--dock-blur)) saturate(1.55)!important;
+ backdrop-filter:blur(var(--dock-blur)) saturate(1.55)!important;
+ padding:8px!important;gap:5px!important;
+ scrollbar-width:none;
+}
+html[data-mode=dark] #shelf{background:#263046ad!important;border-color:#ffffff2c!important}
+#shelf .shelf-line{background:#5a708767}
+#shelf>button{border-radius:13px;transition:transform .16s cubic-bezier(.17,.77,.32,1.23),background .18s}
+#shelf>button:hover{background:#ffffff4f}
+#shelf .app-symbol,.app-symbol{
+ border-radius:12px;
+ border:1px solid #ffffff93;
+ box-shadow:inset 0 1px 0 #ffffff99,inset 0 -7px 11px #0b2d4e13,0 3px 7px #082b4d2e;
+ background:linear-gradient(145deg,#e8f7ff,#51b1ec 55%,#2778ca);color:#fff;
+}
+.app-symbol.mint{background:linear-gradient(148deg,#9df3d7,#37c1b2 52%,#0d7e94);color:#fff}
+.app-symbol.blue{background:linear-gradient(145deg,#c4edff,#4bb4f3 55%,#236fc9);color:#fff}
+.app-symbol.sand{background:linear-gradient(145deg,#fff2b6,#f8ca6b 52%,#d99330);color:#694313}
+.app-symbol.lilac{background:linear-gradient(145deg,#eee0ff,#b698ee 50%,#7757ce);color:#fff}
+.app-symbol.peach{background:linear-gradient(145deg,#ffe1cf,#ffab9a 48%,#e46d73);color:#fff}
+.app-symbol.slate{background:linear-gradient(145deg,#d8e3f2,#99afc8 52%,#607a9d);color:#fff}
+.app-symbol.dark{background:linear-gradient(145deg,#6076a5,#354c7c 55%,#1e2d54);color:#fff}
+#shelf .app-symbol{width:calc(var(--nimbo-dock-size,46px) - 3px)!important;height:calc(var(--nimbo-dock-size,46px) - 3px)!important}
+#shelf .app-symbol svg{width:55%!important;height:55%!important;stroke-width:1.8;filter:drop-shadow(0 1px 2px #06295d42)}
+#shelf .shelf-menu{background:linear-gradient(145deg,#e7effc,#98b8e1 55%,#6895cb);color:#193f78}
+#shelf button.running i{background:#eef8ff;box-shadow:0 0 0 1px #30538d60}
+html[data-nimbo-dock-position="bottom"] #shelf{bottom:12px!important;left:50%!important;top:auto!important;right:auto!important;transform:translateX(-50%)!important;flex-direction:row}
+html[data-nimbo-dock-position="left"] #shelf,html[data-nimbo-dock-position="right"] #shelf{top:50%!important;bottom:auto!important}
+html[data-nimbo-dock-position="left"] #shelf{left:12px!important;right:auto!important;transform:translateY(-50%)!important}
+html[data-nimbo-dock-position="right"] #shelf{right:12px!important;left:auto!important;transform:translateY(-50%)!important}
+html[data-nimbo-dock-position="bottom"] #shelf>button:hover{transform:translateY(-5px) scale(1.08)}
+html[data-nimbo-dock-position="left"] #shelf>button:hover{transform:translateX(5px) scale(1.06)}
+html[data-nimbo-dock-position="right"] #shelf>button:hover{transform:translateX(-5px) scale(1.06)}
+html[data-nimbo-dock-position="bottom"] #shelf button.running i{
+ left:50%;bottom:-5px;top:auto;transform:translateX(-50%);border-radius:99px;width:5px;height:5px}
+html[data-nimbo-dock-position="left"] #shelf button.running i{left:-6px}
+html[data-nimbo-dock-position="right"] #shelf button.running i{left:auto;right:-6px}
+.app-window{background:#f8faffed!important;border:1px solid #ffffffd1!important;
+ border-radius:var(--mac-radius)!important;box-shadow:0 32px 100px #071b4280,0 4px 24px #1a3c6150!important;
+ -webkit-backdrop-filter:blur(22px) saturate(1.2);backdrop-filter:blur(22px) saturate(1.2)}
+.app-window.focused{box-shadow:0 37px 110px #071b4296,0 7px 25px #1a3c613e!important}
+.app-window:not(.focused){filter:saturate(.8);box-shadow:0 15px 50px #071b4260!important}
+.app-window .window-title{
+ position:relative;height:49px!important;padding:0 14px!important;gap:0!important;
+ background:linear-gradient(#f7faffed,#e9eef8e6)!important;
+ border-bottom:1px solid #cbd6e5!important;box-shadow:inset 0 1px #ffffff!important}
+.app-window .window-title strong{position:absolute;left:50%;transform:translateX(-50%);
+ max-width:45%;font-size:12px!important;font-weight:660!important;color:#34445a!important;
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.app-window .window-glyph{display:none}
+.app-window .window-tools{display:flex;width:100%;gap:8px;margin-left:0!important;align-items:center;z-index:2}
+.app-window .window-tools button{width:13px!important;height:13px!important;min-width:13px!important;
+ padding:0!important;display:grid;place-items:center;border-radius:50%!important;
+ box-shadow:inset 0 0 0 1px #00000020,inset 0 1px 1px #ffffff80;transition:filter .1s,transform .1s}
+.app-window .window-tools button:hover{filter:brightness(.92);transform:scale(1.14)}
+.app-window .window-tools button svg{width:9px!important;height:9px!important;opacity:0;stroke-width:2.4}
+.app-window .window-title:hover .window-tools button svg{opacity:.6}
+.app-window .window-tools button[data-frame="close"]{background:#ff5f57!important;order:-6}
+.app-window .window-tools button[data-frame="min"]{background:#ffbd2e!important;order:-5}
+.app-window .window-tools button[data-frame="max"]{background:#28c840!important;order:-4}
+.app-window .window-tools button[data-frame="left"]{order:5;margin-left:auto;background:#d4dff0!important}
+.app-window .window-tools button[data-frame="right"]{order:6;background:#d4dff0!important}
+.app-window .window-tools button[data-frame="space"]{order:7;background:#d4dff0!important}
+.app-window .window-tools button[data-frame="left"] svg,.app-window .window-tools button[data-frame="right"] svg,.app-window .window-tools button[data-frame="space"] svg{opacity:.8;stroke:#58728c}
+.app-window .window-content{background:#f9fbff}
+.app-window .home-sidebar,.app-window .sidebar,.app-window [class*="-sidebar"]{background:var(--sidebar)}
+.app-window .button.primary,.app-window .primary.button{background:linear-gradient(145deg,#449de8,#146ac8)!important;color:#fff!important;border-radius:10px}
+.app-window input,.app-window select,.app-window textarea{border-radius:9px}
+.app-window .home-layout,.app-window .start-page{background:var(--panel)}
+.store-hero{background:linear-gradient(110deg,#18458e,#458ed4)!important}
+.upgraded-store .upgraded-card{border-radius:17px;box-shadow:0 5px 20px #20385d16}
+.upgraded-card:hover{box-shadow:0 9px 28px #20385d30}
+.search-surface,#notice-panel,#desktop-menu,dialog{
+ background:#f8faffec!important;border:1px solid #ffffffdf!important;
+ box-shadow:0 24px 65px #091d4173!important;border-radius:19px!important;
+ -webkit-backdrop-filter:blur(35px) saturate(1.3);backdrop-filter:blur(35px) saturate(1.3)}
+#launcher{background:#12213b4f}
+#launcher .search-surface{padding:27px}
+#launcher .search-surface input{background:#eaf0fa;border-radius:11px;padding:14px}
+#desktop-menu{color:#243853}
+html[data-mode=dark] .app-window{background:#252d40ee!important;border-color:#66718850!important}
+html[data-mode=dark] .app-window .window-title{background:linear-gradient(#31394e,#283147)!important;border-bottom-color:#46536b!important}
+html[data-mode=dark] .app-window .window-title strong{color:#ecf2fa!important}
+html[data-mode=dark] .app-window .window-content,html[data-mode=dark] .app-window .home-layout{background:var(--panel)}
+html[data-mode=dark] #desktop-widgets .nimbo-widget,html[data-mode=dark] .nimbo-workspace-editor{background:#263148cf;border-color:#ffffff25}
+html[data-mode=dark] #desktop-widgets .nimbo-workspace-heading h1,
+html[data-mode=dark] #desktop-widgets .nimbo-workspace-heading p,
+html[data-mode=dark] #desktop-widgets .nimbo-widget-heading h3{color:#f1f6ff}
+html[data-mode=dark] .search-surface,html[data-mode=dark] #notice-panel,
+html[data-mode=dark] #desktop-menu,html[data-mode=dark] dialog{background:#242e42ee!important;color:#f0f4ff}
+html[data-mode=dark] .nimbo-metric,html[data-mode=dark] .nimbo-action-grid button{background:#313e54}
+html[data-nimbo-glass="off"] #systembar,html[data-nimbo-glass="off"] #shelf,
+html[data-nimbo-glass="off"] .nimbo-widget,html[data-nimbo-glass="off"] .app-window,
+html[data-nimbo-glass="off"] #mac-popover{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+@media(max-width:1080px){
+ #mac-menus>button:nth-child(n+4){display:none}
+ #systembar #space-switch{display:none}
+ #desktop-widgets .nimbo-workspace{padding:17px 20px 28px}
+}
+@media(max-width:759px){
+ #systembar{height:47px!important;min-height:47px;padding:0 9px!important;gap:7px!important}
+ nimbo-desktop#desktop{inset:47px 0 0!important}
+ #mac-menus>button:nth-child(n+2){display:none}
+ #mac-menus>button{font-size:10px;padding:6px 5px}
+ #systembar .wordmark{font-size:0;gap:0;padding:4px}
+ #systembar .wordmark>span{width:26px;height:26px;font-size:21px}
+ #systembar #current-app{max-width:85px;font-size:11px}
+ #mac-status{margin-left:auto}
+ #mac-status button{min-width:25px}
+ #systembar #global-search,#systembar #notices-button{min-width:25px;padding:4px}
+ #systembar #system-time{font-size:10px}
+ #shelf{max-width:calc(100vw - 14px)!important;padding:5px!important;gap:2px!important;bottom:7px!important}
+ #shelf>button{width:41px!important;height:43px!important;flex-shrink:0}
+ #shelf .app-symbol{width:35px!important;height:35px!important;border-radius:11px}
+ #desktop-widgets .nimbo-workspace{padding:17px 11px 22px}
+ #desktop-widgets .nimbo-workspace-heading h1{font-size:25px}
+ #desktop-widgets .nimbo-widget{padding:14px;border-radius:16px}
+ .app-window{max-width:100vw!important;border-radius:15px!important}
+ .app-window .window-title strong{max-width:43%}
+ #mac-popover{min-width:min(240px,calc(100vw - 20px))}
+}
+@media(max-width:380px){#mac-status .mac-network{display:none}#systembar #current-app{max-width:55px}
+ #systembar .wordmark>span{width:24px;height:24px}}
+@media(prefers-reduced-motion:reduce){#shelf>button,.app-window,.nimbo-widget{animation:none!important;transition:none!important}}
+
+/* Position the active app name like the macOS application menu; retain all original controls. */
+@media(min-width:760px){
+ #systembar .wordmark{font-size:0!important;order:0}
+ #systembar #current-app{order:1;max-width:150px}
+ #mac-menus{order:2}
+ #systembar #space-switch{order:3}
+ #mac-status{order:4}
+ #systembar #global-search{order:5}
+ #systembar #notices-button{order:6}
+ #systembar #system-time{order:7}
+}
 </style>
   
 </head>
@@ -349,7 +622,7 @@ body:has(#temporary:not([hidden])) #desktop-widgets .nimbo-workspace{padding-top
   <noscript>O Nimbo OS precisa de JavaScript habilitado.</noscript>
   <script>
 (async()=>{
-const RELEASE = '0.14.1-beta.4';
+const RELEASE = '0.14.2-beta.4';
 const LIMIT = 24_000_000;
 const FILE_LIMIT = 3_000_000;
 function key(source = globalThis.crypto) {
@@ -376,7 +649,7 @@ function initialState() {
   const now = Date.now();
   return {
     format: 1, revision: 0,
-    preferences: { mode: 'light', tone: '#286e62', wallpaper: 0, motion: true, contrast: false, transparency: true, nickname: 'você', space: 'criar' },
+    preferences: { mode: 'light', tone: '#287ee4', wallpaper: 0, motion: true, contrast: false, transparency: true, nickname: 'você', space: 'criar' },
     items: [
       { key: 'home', parent: null, label: 'Meu espaço', type: 'dir', system: true, updated: now },
       ...[['docs', 'Documentos'], ['images', 'Imagens'], ['downloads', 'Recebidos'], ['projects', 'Projetos']].map(([key, label]) => ({ key, label, parent: 'home', type: 'dir', system: true, updated: now })),
@@ -2100,7 +2373,7 @@ function openItem(id) {
 /* Nimbo OS 0.12 · Mesa operacional inspirada nas regras do EvoluFísico2.
    Preferências de dock e widgets são guardadas separadamente e incluídas no backup JSON. */
 const DOCK_KEY='nimbo-dock-v2', WORKSPACE_KEY='nimbo-workspace-v1', RECENT_KEY='nimbo-dock-recent';
-const DOCK_DEFAULT={position:'left',size:46,magnify:true,autohide:false,recents:true,indicators:true,bounce:true};
+const DOCK_DEFAULT={position:'bottom',size:48,magnify:true,autohide:false,recents:true,indicators:true,bounce:true};
 function safeLocalObject(storageKey,fallback){try{const v=JSON.parse(localStorage.getItem(storageKey)||'null');return v&&typeof v==='object'&&!Array.isArray(v)?v:fallback;}catch{return fallback;}}
 function dockSettings(){const s=safeLocalObject(DOCK_KEY,DOCK_DEFAULT);return {position:['left','right','bottom'].includes(s.position)?s.position:'left',size:Math.max(36,Math.min(62,Number(s.size)||46)),magnify:s.magnify!==false,autohide:!!s.autohide,recents:s.recents!==false,indicators:s.indicators!==false,bounce:s.bounce!==false};}
 function saveDockSettings(next){const settings={...dockSettings(),...next};localStorage.setItem(DOCK_KEY,JSON.stringify(settings));applyDockSettings();drawShelf();}
@@ -2848,6 +3121,162 @@ for(const [lot,ids] of Object.entries(NU_LOTS)){
   document.addEventListener('visibilitychange',() => {if (!document.hidden && registration && navigator.onLine) registration.update().catch(()=>{});});
   window.NimboPWA = Object.freeze({release,register,check,apply,install,subscribe,current,instruction});
   window.addEventListener('load',() => {register().then(() => {if (registration && navigator.onLine) registration.update().catch(()=>{});});},{once:true});
+})();
+</script>
+<script>
+
+/* Nimbo OS – Mac-inspired interactive desktop shell; native app model preserved. */
+(() => {
+ 'use strict';
+ if (window.NimboMacUI) return;
+ const $ = q => document.querySelector(q);
+ const host = $('#systembar');
+ if (!host) return;
+ const STYLE_KEY = 'nimbo-mac-ui-v1';
+ let view = {glass:true};
+ try {
+   const saved = JSON.parse(localStorage.getItem(STYLE_KEY) || '{}');
+   if (saved && typeof saved === 'object') view.glass = saved.glass !== false;
+ } catch {}
+ const paint = () => {document.documentElement.dataset.nimboGlass = view.glass?'on':'off';};
+ paint();
+ // New installations use the macOS-style bottom Dock. Existing user preferences remain authoritative.
+ try {
+   if (!localStorage.getItem('nimbo-dock-v2')) {
+     localStorage.setItem('nimbo-dock-v2',JSON.stringify({
+       position:'bottom', size:48, magnify:true, autohide:false,
+       recents:true, indicators:true, bounce:true
+     }));
+     document.documentElement.dataset.nimboDockPosition='bottom';
+     document.documentElement.style.setProperty('--nimbo-dock-size','48px');
+   }
+ } catch {}
+ const svg = (name) => {
+   const shapes={
+     control:'<rect x="3" y="4" width="18" height="6" rx="3"/><rect x="3" y="14" width="18" height="6" rx="3"/><circle cx="10" cy="7" r="2" fill="currentColor" stroke="none"/><circle cx="16" cy="17" r="2" fill="currentColor" stroke="none"/>',
+     wifi:'<path d="M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/>',
+     about:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.5"/>'
+   };
+   return '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+(shapes[name]||shapes.about)+'</svg>';
+ };
+ const nav=document.createElement('nav');nav.id='mac-menus';nav.setAttribute('aria-label','Menus do Nimbo OS');
+ const titles=['Nimbo','Arquivo','Editar','Visualizar','Janela','Ajuda'];
+ nav.innerHTML=titles.map((name,i)=>`<button type="button" data-mac-menu="${i}" aria-haspopup="menu" aria-expanded="false">${name}</button>`).join('');
+ host.querySelector('.wordmark')?.after(nav);
+ const status=document.createElement('div');status.id='mac-status';
+ status.innerHTML=`<button type="button" class="mac-network" title="Conectividade do navegador" aria-label="Conectividade do navegador">${svg('wifi')}<span class="net-dot"></span></button><button type="button" data-mac-controls aria-haspopup="menu" aria-label="Central de controle" title="Central de controle">${svg('control')}</button>`;
+ host.insertBefore(status, $('#global-search'));
+ const pop=document.createElement('aside');pop.id='mac-popover';pop.hidden=true;pop.setAttribute('role','menu');
+ document.body.append(pop);
+ let opened=null,anchor=null;
+ function closeMenu(){
+   pop.hidden=true;opened=null;anchor=null;
+   nav.querySelectorAll('[aria-expanded]').forEach(b=>b.setAttribute('aria-expanded','false'));
+   status.querySelector('[data-mac-controls]')?.setAttribute('aria-expanded','false');
+ }
+ function focusWindow(){
+   return document.querySelector('nimbo-window.focused:not([hidden]),nimbo-window:not([hidden]).focused') ||
+     [...document.querySelectorAll('nimbo-window:not([hidden])')].at(-1);
+ }
+ function launch(id){
+   const trigger=document.createElement('button');
+   trigger.dataset.launch=id;trigger.hidden=true;
+   document.body.append(trigger);trigger.click();trigger.remove();
+ }
+ function system(name){const target=document.querySelector(`[data-system="${name}"]`);target?.click();}
+ const menuItems={
+  0:[['Nimbo OS · Beta 4','about',''],['','divider',''],['Preferências do Sistema…','settings','⌘ ,'],['Loja de aplicativos','store',''],['Central de atualizações','updater',''],['','divider',''],['Mostrar área de trabalho','desktop','⌘ H']],
+  1:[['Abrir Arquivos','files',''],['Novo documento','writer',''],['Novo desenho','studio',''],['','divider',''],['Biblioteca de aplicativos','store','']],
+  2:[['Escrita · Editor','writer',''],['Meus passos','tasks',''],['','divider',''],['Buscar aplicativos ou arquivos','search','⌘ Espaço']],
+  3:[['Mostrar área de trabalho','desktop','⌘ H'],['Todas as janelas','overview',''],['Buscar','search','⌘ Espaço'],['','divider',''],['Personalizar widgets','widgets',''],['Aparência e cores','settings','']],
+  4:[['Minimizar janela','min',''],['Ampliar / restaurar','max',''],['Fechar janela','close',''],['','divider',''],['Ver todas as janelas','overview','']],
+  5:[['Pesquisa global','search','⌘ Espaço'],['Central de atualizações','updater',''],['Sobre o Nimbo OS','about','']]
+ };
+ function entries(index){
+   if(index==='controls')return [
+      ['CENTRAL DE CONTROLE','caption',''],
+      [navigator.onLine?'Conexão do navegador: online':'Conexão do navegador: offline','connection',''],
+      ['Efeito de vidro: '+(view.glass?'Ativado':'Desativado'),'glass',''],
+      ['Aparência e plano de fundo…','settings',''],['','divider',''],
+      ['Notificações','notices',''],['Atualizações','updater','']
+   ];
+   return menuItems[index]||menuItems[0];
+ }
+ function openMenu(index,el){
+   if(opened===index && !pop.hidden){closeMenu();return;}
+   closeMenu();opened=index;anchor=el;
+   const items=entries(index);
+   pop.replaceChildren();
+   items.forEach(([label,action,hint])=>{
+     if(action==='divider'){pop.append(document.createElement('hr'));return;}
+     if(action==='caption'){const h=document.createElement('span');h.className='mac-menu-caption';h.textContent=label;pop.append(h);return;}
+     const btn=document.createElement('button');btn.type='button';btn.dataset.macAction=action;
+     const span=document.createElement('span');span.textContent=label;btn.append(span);
+     if(hint){const k=document.createElement('kbd');k.textContent=hint;btn.append(k);}
+     pop.append(btn);
+   });
+   if(typeof index==='number')nav.querySelector(`[data-mac-menu="${index}"]`)?.setAttribute('aria-expanded','true');
+   else el?.setAttribute('aria-expanded','true');
+   pop.hidden=false;
+   const rect=el.getBoundingClientRect();
+   const maxLeft=Math.max(8,innerWidth-pop.offsetWidth-9);
+   pop.style.left=Math.max(8,Math.min(rect.left,pop.offsetWidth>innerWidth-30?8:maxLeft))+'px';
+   pop.style.top=Math.min(innerHeight-pop.offsetHeight-12,rect.bottom+6)+'px';
+   const first=pop.querySelector('button');first?.focus({preventScroll:true});
+ }
+ function showAbout(){
+   const existing=$('#mac-about');if(existing){existing.remove();return;}
+   const wrap=document.createElement('div');wrap.id='mac-about';wrap.style.cssText='position:fixed;inset:0;z-index:30500;display:grid;place-items:center;background:#07182d70;backdrop-filter:blur(8px);padding:20px';
+   const modal=document.createElement('section');modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');modal.setAttribute('aria-label','Sobre o Nimbo OS');
+   modal.style.cssText='border-radius:22px;max-width:420px;width:100%;padding:27px;background:#f9fbff;color:#182b46;box-shadow:0 25px 70px #06173388;text-align:center';
+   modal.innerHTML='<div style="display:grid;place-items:center;width:68px;height:68px;margin:0 auto 14px;border-radius:19px;background:linear-gradient(145deg,#ace6ff,#3796e8,#1556a7);color:white;font-size:39px;box-shadow:0 8px 16px #1556a74a">n.</div><h2 style="font-size:23px;margin:0 0 8px">Nimbo OS</h2><p style="font-size:13px;color:#65788d;line-height:1.6">Beta 4 · Desktop Web PWA<br>50 miniaplicativos e área de trabalho personalizável.</p><p style="font-size:11px;color:#8994a3;margin:15px 0">Visual inspirado no macOS · Identidade Nimbo original</p><button type="button" style="padding:10px 25px;border-radius:9px;background:#247dd6;color:white">Fechar</button>';
+   wrap.append(modal);document.body.append(wrap);
+   function dismiss(){wrap.remove();}
+   wrap.addEventListener('click',e=>{if(e.target===wrap||e.target.closest('button'))dismiss();});
+   modal.querySelector('button')?.focus();
+ }
+ function editWidgets(){
+   // Uses the original Nimbo desktop context menu, preserving its own event handlers.
+   const menu=$('#desktop-menu');
+   if(!menu)return;
+   const target=$('#desktop-widgets')||$('#desktop');
+   target?.dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,cancelable:true,clientX:Math.min(innerWidth-250,80),clientY:95}));
+   const button=menu.querySelector('[data-menu="widgets"]');if(button)button.click();
+ }
+ function run(action){
+   closeMenu();
+   if(['files','writer','studio','store','settings','updater','tasks'].includes(action)){launch(action);return;}
+   if(['search','overview','desktop','notices'].includes(action)){system(action);return;}
+   if(action==='widgets'){editWidgets();return;}
+   if(action==='about'){showAbout();return;}
+   if(action==='glass'){view.glass=!view.glass;paint();try{localStorage.setItem(STYLE_KEY,JSON.stringify(view));}catch{}return;}
+   if(['min','max','close'].includes(action)){
+     const frame=focusWindow();
+     const tool=frame?.querySelector(`[data-frame="${action}"]`);
+     if(tool) tool.click();
+     else if(frame===null) {system('overview');}
+   }
+ }
+ nav.addEventListener('click',event=>{
+   const b=event.target.closest('[data-mac-menu]');if(!b)return;
+   openMenu(Number(b.dataset.macMenu),b);
+ });
+ status.querySelector('[data-mac-controls]').addEventListener('click',e=>openMenu('controls',e.currentTarget));
+ pop.addEventListener('click',event=>{const b=event.target.closest('[data-mac-action]');if(b)run(b.dataset.macAction);});
+ status.querySelector('.mac-network').addEventListener('click',event=>openMenu('controls',status.querySelector('[data-mac-controls]')));
+ document.addEventListener('pointerdown',event=>{
+   if(!pop.hidden&&!event.target.closest('#mac-popover,#mac-menus,#mac-status'))closeMenu();
+ });
+ document.addEventListener('keydown',event=>{
+   if(event.key==='Escape'&&!pop.hidden){closeMenu();event.preventDefault();return;}
+   if(event.metaKey && event.key===' '){event.preventDefault();system('search');}
+   if(event.metaKey && event.key===','){event.preventDefault();launch('settings');}
+   if(event.metaKey && event.key.toLowerCase()==='h' && !event.altKey){event.preventDefault();system('desktop');}
+ });
+ window.addEventListener('resize',closeMenu);
+ function updateNetwork(){status.querySelector('.net-dot')?.classList.toggle('offline',!navigator.onLine);}
+ window.addEventListener('online',updateNetwork);window.addEventListener('offline',updateNetwork);updateNetwork();
+ window.NimboMacUI=Object.freeze({version:'1.0',openMenu:(i)=>openMenu(i,nav.querySelector(`[data-mac-menu="${i}"]`)||status.querySelector('[data-mac-controls]')),closeMenu,run});
 })();
 </script>
 </body>
