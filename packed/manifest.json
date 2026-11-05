@@ -1,0 +1,42 @@
+{
+  "index": {
+    "destination": "index.html",
+    "sha256": "3b0a17a061ac89c5da9603a20946e74a943fb8288c26b7e0c83044ea7c8bc0bb",
+    "length": 10412380,
+    "chunks": [
+      "000.txt",
+      "001.txt",
+      "002.txt",
+      "003.txt",
+      "004.txt",
+      "005.txt",
+      "006.txt",
+      "007.txt",
+      "008.txt",
+      "009.txt",
+      "010.txt",
+      "011.txt",
+      "012.txt"
+    ]
+  },
+  "base": {
+    "destination": "base/Nimbo_OS_0.13.0_Beta3_Lote2_5_Apps.html",
+    "sha256": "0e1518c49882e51c5fdaf5ad10d9ee8ce532eddc21b1155f8a8e46a5b0eb572a",
+    "length": 10345703,
+    "chunks": [
+      "000.txt",
+      "001.txt",
+      "002.txt",
+      "003.txt",
+      "004.txt",
+      "005.txt",
+      "006.txt",
+      "007.txt",
+      "008.txt",
+      "009.txt",
+      "010.txt",
+      "011.txt",
+      "012.txt"
+    ]
+  }
+}
